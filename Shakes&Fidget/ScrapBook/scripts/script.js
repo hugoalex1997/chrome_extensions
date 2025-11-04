@@ -49,6 +49,8 @@ function createPanel() {
   o.onclick = function () {
     maxUnowned = { count: -Infinity, playerName: null, playerRank: 0 };
     resetMax();
+    setCounter(0);
+    setPlayerName('');
   };
   e.appendChild(o);
 
