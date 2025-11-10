@@ -2,9 +2,7 @@
   const basePath = './scripts';
 
   const scripts = [
-    'ui-panel.js',          // UI module (creates and updates the floating panel)
     'fetch-interceptor.js', // Network interception and data parsing
-    // 'fetch-request.js', // Network interception and data parsing
     'scrapbook.js',         // Your existing logic
     'playeritems.js',       // Your existing logic
   ];
