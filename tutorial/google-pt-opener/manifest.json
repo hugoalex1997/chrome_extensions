@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "Google PT Opener",
+  "description": "Opens www.google.pt when the extension popup is clicked",
+  "version": "1.0",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": ["tabs"]
+}
