@@ -36,8 +36,13 @@ export class PlayerItem {
     this.player = ''
   }
 
-  GetUnownedItems() {
-    return this.unowned
+  reset() {
+    this.max_unowned = 0
+    this.player = ""
+  }
+
+  GetMaxUnownedItems() {
+    return this.max_unowned
   }
 
   GetPlayerToAttack() {
@@ -45,12 +50,12 @@ export class PlayerItem {
   }
 
   SetUnownedItems(scrapbook, player, lookatStr) {
-    console.log('Analyzing player: ' + player)
-    console.log('Lookat string: ' + lookatStr)
+    // console.log('Analyzing player: ' + player)
+    // console.log('Lookat string: ' + lookatStr)
 
     const items = this.LookAt(lookatStr)
 
-    console.log('Parsed items: ' + items.join(', '))
+    // console.log('Parsed items: ' + items.join(', '))
     let unowned = 0
     for (const item of items) {
       const variant = `${item}_1`
@@ -62,7 +67,7 @@ export class PlayerItem {
       }
     }
 
-    console.log('Unowned items for player ' + player + ': ' + unowned)
+    // console.log('Unowned items for player ' + player + ': ' + unowned)
 
     if (unowned > this.max_unowned) {
       console.log('New max found for player ' + player + ': ' + unowned)
@@ -70,7 +75,6 @@ export class PlayerItem {
       this.player = player
       this.max_unowned = unowned
     }
-
   }
 
   /**

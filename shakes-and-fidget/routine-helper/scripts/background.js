@@ -9,6 +9,8 @@ function CreateWebRequestListeners() {
     (details) => {
       const url = details.url
 
+      //console.log('Request received:', details.url)
+
       if (contains(url, 'Poll&')) {
         const sid = new URL(url).searchParams.get('sid')
 
@@ -19,10 +21,10 @@ function CreateWebRequestListeners() {
             initialized = true
             CreateAlarms()
             game.fill_scrapbook()
+
+            console.log('Routine Helper initialized!')
           }
         }
-
-        // Optionally: set session if needed for future calls
 
         return
       }
@@ -40,7 +42,7 @@ function CreateWebRequestListeners() {
         return
       }
 
-      console.log('Response received:', details.url, details.statusCode)
+      //console.log('Response received:', details.url, details.statusCode)
     },
     { urls: [url] }
   )
@@ -48,8 +50,8 @@ function CreateWebRequestListeners() {
 
 function CreateAlarms() {
   const alarms = new Map([
-    ['search_player', 1 / 6],
-    ['attack_player', 11],
+    ['search_player', 1 / 60], // 1 per second
+    ['attack_player', 11], // 1 per 11 minutes
   ])
 
   alarms.forEach((interval, alarmName) => {
@@ -59,13 +61,15 @@ function CreateAlarms() {
   chrome.alarms.onAlarm.addListener((alarm) => {
     switch (alarm.name) {
       case 'search_player':
+        //console.log('Searching for player with rare items...')
         game.search_player()
         break
       case 'attack_player':
+        //console.log('Attacking player with rare items...')
         game.attack_player()
         break
       default:
-        console.log('Unknown alarm:', alarm.name)
+        console.error('Unknown alarm:', alarm.name)
     }
   })
 }
@@ -77,5 +81,3 @@ CreateWebRequestListeners()
 
 let initialized = false
 const game = new Game()
-
-console.log('Service Worker script end loading')
