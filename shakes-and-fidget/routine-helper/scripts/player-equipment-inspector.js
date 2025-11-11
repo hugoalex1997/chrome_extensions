@@ -1,4 +1,4 @@
-export class PlayerItem {
+export class PlayerEquipmentInspector {
   static ItemType = {
     Weapon: 1,
     Shield: 2,
@@ -36,26 +36,18 @@ export class PlayerItem {
     this.player = ''
   }
 
-  reset() {
+  Reset() {
     this.max_unowned = 0
-    this.player = ""
+    this.player = ''
   }
 
-  GetMaxUnownedItems() {
-    return this.max_unowned
-  }
-
-  GetPlayerToAttack() {
+  GetPlayer() {
     return this.player
   }
 
-  SetUnownedItems(scrapbook, player, lookatStr) {
-    // console.log('Analyzing player: ' + player)
-    // console.log('Lookat string: ' + lookatStr)
+  UpdateUnownedItems(scrapbook, player, equipment) {
+    const items = this.lookAt(equipment)
 
-    const items = this.LookAt(lookatStr)
-
-    // console.log('Parsed items: ' + items.join(', '))
     let unowned = 0
     for (const item of items) {
       const variant = `${item}_1`
@@ -67,22 +59,25 @@ export class PlayerItem {
       }
     }
 
-    // console.log('Unowned items for player ' + player + ': ' + unowned)
-
     if (unowned > this.max_unowned) {
-      console.log('New max found for player ' + player + ': ' + unowned)
+      console.info('PlayerEquipmentInspector :: New max found for player ' + player + ': ' + unowned)
 
       this.player = player
       this.max_unowned = unowned
     }
   }
 
+  //===============================================================================================================//
+  // NOTE(hgomes): All the code below was copied from a working plugin.
+  // If you're planning to update or refactor this section, best of luck, improvements are welcome!
+  //===============================================================================================================//
+
   /**
    * Parses the lookat string into item representations.
    * @param {string} lookatStr - The encoded lookat string, slash-separated values.
    * @returns {string[]} Array of item name strings.
    */
-  LookAt(lookatStr) {
+  lookAt(lookatStr) {
     const result = []
     const lookatArr = lookatStr.split('/')
     // Indices for each section
@@ -102,25 +97,25 @@ export class PlayerItem {
     let m = 255 & Number(e[t])
     let o = (65535 & Number(e[t + 3])) % 1000
     let n =
-      m === PlayerItem.ItemType.Helmet ||
-      m === PlayerItem.ItemType.Belt ||
-      m === PlayerItem.ItemType.Gloves ||
-      m === PlayerItem.ItemType.Shoes ||
-      m === PlayerItem.ItemType.Shield ||
-      m === PlayerItem.ItemType.Weapon ||
-      m === PlayerItem.ItemType.Chest
+      m === PlayerEquipmentInspector.ItemType.Helmet ||
+      m === PlayerEquipmentInspector.ItemType.Belt ||
+      m === PlayerEquipmentInspector.ItemType.Gloves ||
+      m === PlayerEquipmentInspector.ItemType.Shoes ||
+      m === PlayerEquipmentInspector.ItemType.Shield ||
+      m === PlayerEquipmentInspector.ItemType.Weapon ||
+      m === PlayerEquipmentInspector.ItemType.Chest
         ? Math.floor((65535 & Number(e[t + 3])) / 1000)
         : undefined
 
     let s
-    if (o <= 49 && m !== PlayerItem.ItemType.Talisman) {
+    if (o <= 49 && m !== PlayerEquipmentInspector.ItemType.Talisman) {
       const numbers = e.slice(t + 5, t + 13).map(Number)
       const sum = numbers.reduce((acc, val) => acc + val, 0)
       s = Number.isFinite(sum) ? (sum % 5) + 1 : 1
     } else {
       s = 1
     }
-    return PlayerItem.getItemName(m, n, o, s)
+    return PlayerEquipmentInspector.getItemName(m, n, o, s)
   }
 
   /**
@@ -132,17 +127,17 @@ export class PlayerItem {
    * @returns {string}
    */
   static getItemName(e, t, s, m) {
-    const o = PlayerItem.ItemTypeNames
-    const n = PlayerItem.ClassNames
+    const o = PlayerEquipmentInspector.ItemTypeNames
+    const n = PlayerEquipmentInspector.ClassNames
     const l = t != null && t + 1 === 1 // True for warrior class
     // Epic item if s >= 50 for certain types
     const epic =
       s >= 50 &&
-      (e === PlayerItem.ItemType.Necklace ||
-        e === PlayerItem.ItemType.Ring ||
-        e === PlayerItem.ItemType.Chest ||
-        e === PlayerItem.ItemType.Belt ||
-        (e === PlayerItem.ItemType.Weapon && l))
+      (e === PlayerEquipmentInspector.ItemType.Necklace ||
+        e === PlayerEquipmentInspector.ItemType.Ring ||
+        e === PlayerEquipmentInspector.ItemType.Chest ||
+        e === PlayerEquipmentInspector.ItemType.Belt ||
+        (e === PlayerEquipmentInspector.ItemType.Weapon && l))
         ? '\\epic'
         : ''
     if (t != null) {
