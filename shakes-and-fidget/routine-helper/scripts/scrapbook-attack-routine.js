@@ -15,6 +15,10 @@ export class ScrapBookAttackRoutine {
     return this.initialized
   }
 
+  Reset() {
+    this.initialized = false
+  }
+
   async Initialize(id) {
     this.initialized = true
     this.SetSessionId(id)
