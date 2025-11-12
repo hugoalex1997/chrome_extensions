@@ -12,7 +12,7 @@ chrome.runtime.onMessage.addListener((message) => {
 
     if (info.enabled) {
       const config = {
-        world: info.world,
+        world: `s${info.world}`,
         localization: info.localization,
         minRank: info.minRank,
         maxRank: info.maxRank,
@@ -21,6 +21,9 @@ chrome.runtime.onMessage.addListener((message) => {
     } else {
       StopScrapBookRoutine()
     }
+  } else if (message.get_scrapbook_routine_state) {
+    const isActive = IsScrapBookRoutineActive()
+    sendResponse({isActive: isActive})
   }
 })
 

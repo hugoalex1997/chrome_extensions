@@ -5,10 +5,10 @@ function IsRunning() {
 function getScrapbookRoutineMessage(enabled) {
   return {
     enabled,
-    world: worldLabel?.value || 's23',
-    localization: localizationLabel?.value || 'eu',
-    minRank: minRank?.value || 1,
-    maxRank: maxRank?.value || 30000,
+    world: worldLabel?.value,
+    localization: localizationLabel?.value,
+    minRank: minRank?.value,
+    maxRank: maxRank?.value,
   }
 }
 
@@ -27,9 +27,10 @@ function DisableScrapBookRoutine() {
 //================== MAIN ==================//
 
 //TODO(hg): Fetch popup state from backend routine status
-const enable_disable_button = document.getElementById('scrapbook_routine_button')
 const startLabel = 'Start Scrapbook Search'
 const stopLabel = 'Stop Scrapbook Search'
+
+const enable_disable_button = document.getElementById('scrapbook_routine_button')
 
 const worldLabel = document.getElementById('world')
 const localizationLabel = document.getElementById('localization')

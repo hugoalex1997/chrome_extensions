@@ -115,6 +115,9 @@ export function StopScrapBookRoutine() {
   scrapBookAttackRoutine.Reset()
 }
 
+export function IsScrapBookRoutineActive() {
+  return scrapBookAttackRoutine.IsInitialized()
+}
 //================== MAIN ==================//
 
 console.log('Routine :: Script Run!')
