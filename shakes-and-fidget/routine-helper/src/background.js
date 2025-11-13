@@ -11,7 +11,9 @@ function ToggleScrapBookRoutineStatus(info) {
     localization: info.localization,
     minRank: info.minRank,
     maxRank: info.maxRank,
+    searchPlayerSpeed: info.searchPlayerSpeed,
   }
+
   StartScrapBookRoutine(config)
 }
 

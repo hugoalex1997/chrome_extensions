@@ -1,5 +1,4 @@
 import { ScrapBookAttackRoutine } from './scrapbook-attack-routine.js'
-import { config } from './config.js'
 import { Contains } from './utils.js'
 
 function isPoll(url) {
@@ -77,9 +76,14 @@ function onAlarm(alarm) {
 }
 
 function CreateScrapBookAttackRoutineAlarms() {
+  const config = scrapBookAttackRoutine.GetConfig()
+  const searchSpeed = config.searchPlayerSpeed || 60
+
+  console.info('Searching ', searchSpeed, ' Players per minute')
+
   const alarms = new Map([
     ['timer_logger', 1],
-    ['search_player', 1 / 120], // 2 per second
+    ['search_player', 1 / searchSpeed],
     ['attack_player', 11], // 1 per 11 minutes
   ])
 
@@ -104,7 +108,7 @@ export function StartScrapBookRoutine(config) {
     return
   }
 
-  scrapBookAttackRoutine.Enable()
+  scrapBookAttackRoutine.Enable(config)
   CreateWebRequestListeners(config)
 }
 

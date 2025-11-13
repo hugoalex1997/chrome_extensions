@@ -1,23 +1,29 @@
-import { config } from './config.js'
 import { PlayerEquipmentInspector } from './player-equipment-inspector.js'
 import { RandomBetween } from './utils.js'
 import { ShakesAndFidgetHttpRequests } from './http-requests.js'
 
 export class ScrapBookAttackRoutine {
   constructor() {
-    this.http = new ShakesAndFidgetHttpRequests()
-    this.equipmentInspector = new PlayerEquipmentInspector()
-    this.scrapbook = ''
     this.running = false
     this.initialized = false
+    this.config = {}
+
+    this.scrapbook = ''
+    this.http = {}
+    this.equipmentInspector = {}
+  }
+
+  GetConfig() {
+    return this.config
   }
 
   IsRunning() {
     return this.running
   }
 
-  Enable() {
+  Enable(config) {
     this.running = true
+    this.config = config
   }
 
   IsInitialized() {
@@ -31,6 +37,9 @@ export class ScrapBookAttackRoutine {
 
   async Initialize(id) {
     this.initialized = true
+    this.http = new ShakesAndFidgetHttpRequests(this.config)
+    this.equipmentInspector = new PlayerEquipmentInspector()
+
     this.SetSessionId(id)
     await this.FetchScrapBook()
 
@@ -71,7 +80,7 @@ export class ScrapBookAttackRoutine {
       console.error('ScrapBookAttacksRoutine :: Scrapbook not loaded, cannot search for players')
     }
 
-    const rank = RandomBetween(config.minRank, config.maxRank)
+    const rank = RandomBetween(this.config.minRank, this.config.maxRank)
 
     const playerName = await this.http.GetPlayerName(rank)
 

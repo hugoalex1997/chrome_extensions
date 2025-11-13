@@ -1,4 +1,3 @@
-import { config } from './config.js'
 import { ScrapbookParser } from './scrapbook-parser.js'
 import { ToBase64 } from './utils.js'
 
@@ -36,13 +35,13 @@ class HttpRequestsHandler {
 }
 
 export class ShakesAndFidgetHttpRequests {
-  constructor(id) {
+  constructor(config) {
     this.http = new HttpRequestsHandler()
     this.sessionId = ''
 
-    const world = config.sfWorld
-    const loc = config.sfLocalization
-    this.baseRequest = `https://${world}.sfgame.${loc}/cmd.php?`
+    const world = config.world
+    const loc = config.localization
+    this.baseRequest = `https://s${world}.sfgame.${loc}/cmd.php?`
   }
 
   buildRequest(name, params = null) {
@@ -53,10 +52,10 @@ export class ShakesAndFidgetHttpRequests {
   }
 
   SetSessionId(id) {
-    if(this.sessionId == id) {
+    if (this.sessionId == id) {
       return
     }
-    
+
     console.info('ShakesAndFidgetHttpRequests :: Session ID updated to: ' + id)
     this.sessionId = id
   }

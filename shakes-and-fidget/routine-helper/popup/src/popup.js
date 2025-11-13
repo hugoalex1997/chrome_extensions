@@ -34,6 +34,22 @@ class Popup {
     })
   }
 
+  getSearchPlayerSpeed() {
+    const speedSelected = document.querySelector('input[name="speed"]:checked')
+    const speed = speedSelected ? speedSelected.value : null // "slow" | "normal" | "fast"
+    const default_ = 60
+
+    switch (speed) {
+      case 'slow':
+        return 30
+      case 'normal':
+        return 60
+      case 'fast':
+        return 120
+    }
+    return default_
+  }
+
   getScrapbookRoutineMessage(enabled) {
     return {
       enabled: enabled,
@@ -41,6 +57,7 @@ class Popup {
       localization: this.localizationLabel?.value,
       minRank: this.minRank?.value,
       maxRank: this.maxRank?.value,
+      searchPlayerSpeed: this.getSearchPlayerSpeed(),
     }
   }
 
