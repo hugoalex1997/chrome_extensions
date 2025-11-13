@@ -77,7 +77,7 @@ export class ScrapBookAttackRoutine {
 
   async SearchPlayer() {
     if (!this.scrapbook) {
-      console.error('ScrapBookAttacksRoutine :: Scrapbook not loaded, cannot search for players')
+      console.warn('ScrapBookAttacksRoutine :: Scrapbook not loaded, cannot search for players')
     }
 
     const rank = RandomBetween(this.config.minRank, this.config.maxRank)
@@ -88,7 +88,7 @@ export class ScrapBookAttackRoutine {
       console.warn('ScrapBookAttacksRoutine :: No player found at rank: ' + rank)
       return
     }
-
+    
     const equipmentInfo = await this.http.GetPlayerInformation(playerName)
 
     this.equipmentInspector.UpdateUnownedItems(this.scrapbook, playerName, equipmentInfo)

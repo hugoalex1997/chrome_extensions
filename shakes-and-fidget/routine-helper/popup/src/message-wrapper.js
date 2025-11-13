@@ -5,7 +5,7 @@ export class MessageWrapper {
 
   async SendRequestAsync(message, timeoutMs) {
     if (!message) {
-      console.error('MessageWrapper :: message is not valid')
+      throw new Error('MessageWrapper :: message is not valid')
       return
     }
 

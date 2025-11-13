@@ -79,7 +79,7 @@ class Popup {
 
   async EnableScrapBookRoutine() {
     if (this.enabled) {
-      console.error('Scrapbook routine is already disabled')
+      console.warn('Scrapbook routine is already disabled')
       return
     }
 
@@ -102,7 +102,7 @@ class Popup {
 
   async DisableScrapBookRoutine() {
     if (!this.enabled) {
-      console.error('Scrapbook routine is already disabled')
+      console.warn('Scrapbook routine is already disabled')
       return
     }
 

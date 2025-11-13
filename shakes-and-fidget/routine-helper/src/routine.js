@@ -71,7 +71,7 @@ function onAlarm(alarm) {
       scrapBookAttackRoutine.AttackPlayer()
       break
     default:
-      console.error('Unknown alarm:', alarm.name)
+      throw new Error('Unknown alarm:', alarm.name)
   }
 }
 
@@ -104,7 +104,7 @@ export function StartScrapBookRoutine(config) {
   console.info('Routine :: Starting ScrapBook Routine!')
 
   if (scrapBookAttackRoutine.IsInitialized()) {
-    console.error('Routine :: ScrapBook Routine is already running!')
+    console.warn('Routine :: ScrapBook Routine is already running!')
     return
   }
 
