@@ -79,7 +79,7 @@ function onAlarm(alarm) {
 function CreateScrapBookAttackRoutineAlarms() {
   const alarms = new Map([
     ['timer_logger', 1],
-    ['search_player', 1 / 60], // 1 per second
+    ['search_player', 1 / 120], // 2 per second
     ['attack_player', 11], // 1 per 11 minutes
   ])
 
