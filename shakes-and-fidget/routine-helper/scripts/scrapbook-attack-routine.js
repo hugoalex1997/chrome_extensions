@@ -8,7 +8,16 @@ export class ScrapBookAttackRoutine {
     this.http = new ShakesAndFidgetHttpRequests()
     this.equipmentInspector = new PlayerEquipmentInspector()
     this.scrapbook = ''
+    this.running = false
     this.initialized = false
+  }
+
+  IsRunning() {
+    return this.running
+  }
+
+  Enable() {
+    this.running = true
   }
 
   IsInitialized() {
@@ -17,6 +26,7 @@ export class ScrapBookAttackRoutine {
 
   Reset() {
     this.initialized = false
+    this.running = false
   }
 
   async Initialize(id) {

@@ -1,0 +1,17 @@
+{
+  "name": "popup-bundle",
+  "version": "1.0.0",
+  "description": "Build setup to bundle a single popup.js for a Chrome extension (esbuild-based).",
+  "private": true,
+  "main": "dist/popup.js",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "npm run clean && esbuild src/popup.js --bundle --outfile=dist/popup.js --platform=browser --format=iife --target=es2020 --sourcemap --minify --legal-comments=none",
+    "watch": "esbuild src/popup.js --bundle --outfile=dist/popup.js --platform=browser --format=iife --target=es2020 --sourcemap --watch",
+    "dev": "npm run build && npm run watch"
+  },
+  "devDependencies": {
+    "esbuild": "^0.19.2",
+    "rimraf": "^5.0.1"
+  }
+}

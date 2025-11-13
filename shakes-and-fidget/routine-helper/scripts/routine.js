@@ -42,7 +42,7 @@ function onCompleted(details) {
 }
 
 function CreateWebRequestListeners(config) {
-  const url = `https://${config.world}.sfgame.${config.localization}/cmd.php*`
+  const url = `https://s${config.world}.sfgame.${config.localization}/cmd.php*`
 
   chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, { urls: [url] })
 
@@ -64,7 +64,7 @@ function onAlarm(alarm) {
     case 'timer_logger':
       timer++
       console.info(`Background running for ${timer} minutes `)
-      break;
+      break
     case 'search_player':
       scrapBookAttackRoutine.SearchPlayer()
       break
@@ -104,6 +104,7 @@ export function StartScrapBookRoutine(config) {
     return
   }
 
+  scrapBookAttackRoutine.Enable()
   CreateWebRequestListeners(config)
 }
 
@@ -116,10 +117,10 @@ export function StopScrapBookRoutine() {
 }
 
 export function IsScrapBookRoutineActive() {
-  return scrapBookAttackRoutine.IsInitialized()
+  return scrapBookAttackRoutine.IsRunning()
 }
 //================== MAIN ==================//
 
-console.log('Routine :: Script Run!')
+//console.log('Routine :: Script Run!')
 const scrapBookAttackRoutine = new ScrapBookAttackRoutine()
 let timer = 0
