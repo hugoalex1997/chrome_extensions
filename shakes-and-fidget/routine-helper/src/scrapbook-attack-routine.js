@@ -43,6 +43,8 @@ export class ScrapBookAttackRoutine {
     this.SetSessionId(id)
     await this.FetchScrapBook()
 
+    this.FortressHarvest()
+
     console.info('ScrapBookAttackRoutine :: Initialized!')
   }
 
@@ -92,5 +94,10 @@ export class ScrapBookAttackRoutine {
     const equipmentInfo = await this.http.GetPlayerInformation(playerName)
 
     this.equipmentInspector.UpdateUnownedItems(this.scrapbook, playerName, equipmentInfo)
+  }
+
+  async FortressHarvest() {
+    console.info('ScrapBookAttacksRoutine :: Harvesting fortress resources')
+    await this.http.FortressHarvest()
   }
 }

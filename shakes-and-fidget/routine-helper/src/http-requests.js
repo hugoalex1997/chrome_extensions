@@ -222,4 +222,25 @@ export class ShakesAndFidgetHttpRequests {
 
     return scrapBook
   }
+
+  async FortressHarvest() {
+    /* Example:
+
+    request: 
+    - https://s23.sfgame.eu/cmd.php?req=FortressGather&params=MQ==&sid=0-UpGaLtF0qGJWzi (wood)
+    - https://s23.sfgame.eu/cmd.php?req=FortressGather&params=Mg==&sid=0-UpGaLtF0qGJWzi (stone)
+    - https://s23.sfgame.eu/cmd.php?req=FortressGather&params=Mw==&sid=0-UpGaLtF0qGJWzi (xp)
+
+
+    response: (not used)
+    */
+
+    const woodRequest = this.buildRequest('FortressGather', ToBase64(1))
+    const stoneRequest = this.buildRequest('FortressGather', ToBase64(2))
+    const xpRequest = this.buildRequest('FortressGather', ToBase64(3))
+
+    await this.http.SendRequestAsync(woodRequest, 'GET')
+    await this.http.SendRequestAsync(stoneRequest, 'GET')
+    await this.http.SendRequestAsync(xpRequest, 'GET')
+  }
 }

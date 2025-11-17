@@ -70,6 +70,8 @@ function onAlarm(alarm) {
     case 'attack_player':
       scrapBookAttackRoutine.AttackPlayer()
       break
+    case 'harvest': 
+      scrapBookAttackRoutine.FortressHarvest()
     default:
       throw new Error('Unknown alarm:', alarm.name)
   }
@@ -85,6 +87,7 @@ function CreateScrapBookAttackRoutineAlarms() {
     ['timer_logger', 1],
     ['search_player', 1 / searchSpeed],
     ['attack_player', 11], // 1 per 11 minutes
+    ['harvest', 60],
   ])
 
   alarms.forEach((interval, alarmName) => {
@@ -92,6 +95,7 @@ function CreateScrapBookAttackRoutineAlarms() {
   })
 
   chrome.alarms.onAlarm.addListener(onAlarm)
+
 }
 
 function DeleteScrapBookAttackRoutineAlarms() {
