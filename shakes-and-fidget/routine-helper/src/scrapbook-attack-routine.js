@@ -88,7 +88,7 @@ export class ScrapBookAttackRoutine {
       console.warn('ScrapBookAttacksRoutine :: No player found at rank: ' + rank)
       return
     }
-    
+
     const equipmentInfo = await this.http.GetPlayerInformation(playerName)
 
     this.equipmentInspector.UpdateUnownedItems(this.scrapbook, playerName, equipmentInfo)
