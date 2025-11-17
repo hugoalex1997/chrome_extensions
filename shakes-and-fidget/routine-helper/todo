@@ -1,7 +1,8 @@
-- Add toggle to enable/disable backend service; (e.g. extension icon popup)
-
-- Add the possibility to change configuration through ui; (e.g. extension icon popup)
 
 - Add the possibility to skip an attack if stamina is not regenerated;
 
 - Create wiki to facilitate support.
+
+- Refactor to Typescript.
+
+- Improve project build system, build project together (backend and popup)
