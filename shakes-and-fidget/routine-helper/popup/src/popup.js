@@ -32,6 +32,28 @@ class Popup {
         this.EnableScrapBookRoutine()
       }
     })
+
+    const validateValues = () => {
+      if (this.enabled) {
+        this.toggleButton.disabled = false
+        return
+      }
+
+      const rawMin = String(this.minRank.value).trim()
+      const rawMax = String(this.maxRank.value).trim()
+
+      const min = Number(rawMin)
+      const max = Number(rawMax)
+
+      const valid = Number.isFinite(min) && Number.isFinite(max) && min <= max
+      
+      console.log(`Validating scrapbook rank values: min=${min}, max=${max}, valid=${valid}`)
+
+      this.toggleButton.disabled = !valid
+    }
+
+    this.minRank.addEventListener('input', validateValues)
+    this.maxRank.addEventListener('input', validateValues)
   }
 
   getSearchPlayerSpeed() {
