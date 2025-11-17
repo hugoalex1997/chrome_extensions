@@ -72,6 +72,7 @@ function onAlarm(alarm) {
       break
     case 'harvest': 
       scrapBookAttackRoutine.FortressHarvest()
+      break
     default:
       throw new Error('Unknown alarm:', alarm.name)
   }
@@ -87,7 +88,7 @@ function CreateScrapBookAttackRoutineAlarms() {
     ['timer_logger', 1],
     ['search_player', 1 / searchSpeed],
     ['attack_player', 11], // 1 per 11 minutes
-    ['harvest', 60],
+    ['harvest', 60], // 1 per hour
   ])
 
   alarms.forEach((interval, alarmName) => {
